@@ -13,6 +13,16 @@
       </van-tabbar-item>
   </van-tabbar>
 
+    <van-tabbar v-model="active" route v-show="showTabbar">
+      <van-tabbar-item 
+      v-for="item in menu" 
+      :key="item.path" 
+      :icon="item.icon" 
+      :to="item.path"
+      >
+      {{item.text}}
+      </van-tabbar-item>
+  </van-tabbar>
   </div>
 </template>
 
@@ -20,6 +30,7 @@
 
 export default {
   name: 'App',
+
   data(){
       return {
           active:0,
@@ -56,7 +67,3 @@ export default {
   }
 }
 </script>
-
-<style>
-
-</style>
