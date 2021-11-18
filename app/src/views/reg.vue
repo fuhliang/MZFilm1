@@ -1,11 +1,62 @@
 <template>
     <div>
-        Reg
+        <div class="logo">
+            <img src="https://assets.maizuo.com/h5/mz-auth/public/app/img/logo.19ca0be.png" alt="">
+        </div>
+        <van-form @submit="onSubmit">
+            <van-field
+                v-model="username"
+                name="username"
+                label="用户名"
+                :rules="[{ required: true, message: '请填写用户名' }]"
+            />
+            <van-field
+                v-model="password"
+                type="password"
+                name="password"
+                label="密码"
+                :rules="[{ required: true, message: '请填写密码' }]"
+            />
+            <div style="margin: 16px;">
+                <van-button round block type="warning" native-type="submit">注册</van-button>
+            </div>
+        </van-form>
+    
     </div>
 </template>
 <script>
 export default {
-    //注册
-    name:'Reg'
+    name:'Reg',
+     data() {
+        return {
+        username: '',
+        password: '',
+        };
+    },
+     methods: {
+        onSubmit(values) {
+        console.log('submit', values);
+
+        },
+    },
 }
 </script>
+<style scoped>
+.logo{
+    height: 60px;
+    width: 100%;
+    margin: 79px auto 40px;
+    text-align: center;
+    
+}
+.logo img{
+    /* width: 61px; */
+    height: 61px;
+    margin: 0 auto;
+}
+p{
+  width: 100%;
+  height: 20px;
+  text-align: center;
+}
+</style>

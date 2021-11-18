@@ -10,6 +10,10 @@ import store from './store'
 // Vue.use(Vant)：注册全局组件，给原型添加$notify()，$toast()方法
 Vue.use(Vant)
 
+
+
+
+
 // 给Vue的原型添加方法
 Vue.prototype.$request=request
 
