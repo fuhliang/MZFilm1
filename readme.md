@@ -26,4 +26,3 @@
 
 <img src="./img/4.png" style="width:200px" />
 
-xx嘻嘻嘻
