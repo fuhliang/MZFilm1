@@ -13,8 +13,8 @@
         </div>
         <van-grid clickable :column-num="2">
             <!-- <van-icon name="coupon" /> -->
-            <van-grid-item icon="coupon-o" text="电影订单" to="/" />
-            <van-grid-item icon="orders-o" text="商品订单" url="/vant/mobile.html" />
+            <van-grid-item icon="coupon-o" text="电影订单" to="/login" />
+            <van-grid-item icon="orders-o" text="商品订单" url="/login" />
         </van-grid>
 
         <div class="conent">
@@ -97,13 +97,15 @@ export default {
 ul{
     background-color: white;
     height: 150px;
+    margin-top: 10px;
 }
 ul li{
     height: 36px;
+    
 
 }
 ul li p{
     display: inline-block;
-    margin-left: 12px;
+    margin-left: 50px;
 }
 </style>
