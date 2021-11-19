@@ -9,6 +9,7 @@ import Reg from '../views/Reg.vue'
 import Cinema from '../views/Cinema.vue'
 import Information from '../views/Information.vue'
 import Mine from '../views/Mine.vue'
+import NowPlaying from '../views/NowPlaying.vue'
 
 
 // 3. 安装路由插件
@@ -41,6 +42,11 @@ const router = new VueRouter({
     {
       path:'/information',
       component:Information
+    },
+    {
+      path:'/nowPalying',
+      component:NowPlaying,
+      name:"NowPlaying"
     },
     
   ]
