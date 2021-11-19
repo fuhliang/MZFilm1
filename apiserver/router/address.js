@@ -11,10 +11,10 @@ router.get('/list',async (req,res)=>{
     let sql = `select * from address`
 
     // console.log(req.query);
-    const {category}=req.query
+    const {districtName}=req.query
     // console.log(category);
-    if(category){
-        sql+=` where category="${category}"`
+    if(districtName){
+        sql+=` where districtName="${districtName}"`
     }
 
 

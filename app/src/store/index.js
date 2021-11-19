@@ -1,6 +1,9 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 
+import hot from './hot'
+import now from './now'
+import address from './address'
 
 // 2. 安装vuex插件
 Vue.use(Vuex)
@@ -31,9 +34,11 @@ const store  = new Vuex.Store({
 
    
     modules:{
-        
+        hot,
+        now,
+        address,
     }
 })
-
+console.log("store",store);
 
 export default store;
