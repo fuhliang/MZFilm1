@@ -2,29 +2,35 @@
     <div>
 
         <van-swipe class="my-swipe" :autoplay="3000" indicator-color="white">
-            <van-swipe-item>1</van-swipe-item>
-            <van-swipe-item>2</van-swipe-item>
-            <van-swipe-item>3</van-swipe-item>
+            <van-swipe-item><img src="../assets/imgs/banner/1.jpg" style="width:100%;height:100%"></van-swipe-item>
+            <van-swipe-item><img src="../assets/imgs/banner/2.jpg" style="width:100%;height:100%"></van-swipe-item>
+            <van-swipe-item><img src="../assets/imgs/banner/3.jpg" style="width:100%;height:100%"></van-swipe-item>
         </van-swipe>
         
         <van-tabs v-model="active">
             <van-tab  v-for="item in titles" :key="item.title" :title="item.title">
+                <div v-if="item.title=='正在热映'" >
                 <van-card
-                style="background:white;padding:15px 15px 15px 0;"
-            
-                thumb="https://img01.yzcdn.cn/vant/ipad.jpeg"
+                style="background:white;padding:15px;"
+                v-for="item in hot" :key="item.id"
+                
+                thumb="item.poster"
                 >
+                    <!-- <template #thumb style="witdh=100%">
+                        <img src="item.poster " alt="" style="witdh=100%">
+                    </template>     -->
                     <template #title >
                         <p
                         style="font-size:16px;margin-top:12px" 
-                        >铁道英雄</p>
+                        >{{item.name}}</p>
+                        <!-- <span>{{item.poster}}</span> -->
                     </template>
                     <template #desc>
                         <span
-                        style="color: #797d82;display:inline-block"
-                        >主演：杨枫 张涵予 范伟 魏晨 周也</span>
-                        <span style="color: #797d82;display:inline-block">
-                            中国大陆 | 123分钟
+                        style="color: #797d82;display:block"
+                        >主演：{{item.director}}</span>
+                        <span style="color: #797d82;display:block">
+                            {{item.nation}} | {{item.runtime}}分钟
                         </span>
                     </template>
                     <template #footer >
@@ -32,6 +38,37 @@
                     </template>
                     
                 </van-card>
+                </div>
+                <div v-if="item.title=='即将上映'" >
+                <van-card
+                style="background:white;padding:15px;"
+                v-for="item in now" :key="item.id"
+                
+                thumb=" item.poster"
+                >
+                    <template #thumb style="witdh=100%">
+                        <img src="item.poster " alt="" style="witdh=100%">
+                    </template>    
+                    <template #title >
+                        <p
+                        style="font-size:16px;margin-top:12px" 
+                        >{{item.name}}</p>
+                        <!-- <span>{{item.poster}}</span> -->
+                    </template>
+                    <template #desc>
+                        <span
+                        style="color: #797d82;display:block"
+                        >主演：{{item.director}}</span>
+                        <span style="color: #797d82;display:block">
+                            {{item.nation}} | {{item.runtime}}分钟
+                        </span>
+                    </template>
+                    <template #footer >
+                        <van-button size="mini" class="goupiao">购票</van-button>
+                    </template>
+                    
+                </van-card>
+                </div>
                 <van-divider />
             </van-tab>
         </van-tabs>
@@ -40,7 +77,7 @@
     </div>
 </template>
 <script>
-import axios from 'axios'
+
 export default {
 
     //电影
@@ -53,9 +90,23 @@ export default {
             titles:[
                 {title:"正在热映"},
                 {title:"即将上映"},
-            ]
+            ],
+            hot:[],
+            now:[],
         }
-    }
+    },
+    created(){
+        this.$request.get('/hot/list').then(data=>{
+            console.log("hot",data.data.data);
+            
+            this.hot=data.data.data
+            console.log(data.data.data[0].poster);
+        })
+        this.$request.get('/now/list').then(data=>{
+            console.log("now",data.data.data);
+            this.now=data.data.data
+        })
+    },
 }
 </script>
 <style lang="scss" scoped>
