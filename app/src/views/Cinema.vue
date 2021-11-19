@@ -9,8 +9,8 @@
         </template>
         </van-nav-bar>
 
-        <van-dropdown-menu>
-            <van-dropdown-item v-model="value1" :options="option1" />
+        <van-dropdown-menu >
+            <van-dropdown-item v-model="changetext" :options="option1"  @change="menuChange(changetext)"/>
             <van-dropdown-item v-model="value2" :options="option2" />
             <van-dropdown-item v-model="value3" :options="option3" />
         </van-dropdown-menu>
@@ -19,20 +19,21 @@
         v-model="loading"
         :finished="finished"
         finished-text="没有更多了"
-        @load="onLoad"
         >
-        <van-cell v-for="item in list" :key="item" :title="item" 
+        <van-cell  
         style="width: 100%;height: 45px;padding: 15px;"
         />
         <template #default>
-            <div class="listItem">
+            <div class="listItem" v-for="item in address" :key="item.id">
                 <div class="left">
-                    <span>广州嘉莱影乐汇</span>
-                    <span>广州市白云区白云大道北880号安华汇六层</span>
+                    <span>{{item.name}}</span>
+                    <span 
+                    style="display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;width:260px"
+                    >{{item.address}}</span>
                 </div>
                 <div class="right">
-                    <span>24.9起</span>
-                    <span>0.5km</span>
+                    <span>{{(item.lowPrice*0.01).toFixed(1)}}起</span>
+                    <span>{{item.districtName}}</span>
                 </div>
             </div>
             
@@ -41,18 +42,30 @@
     </div>
 </template>
 <script>
+import {mapMutations} from 'vuex'
 export default {
     //影院
     name:'Cinema',
     data(){
         return {
             //下拉菜单数据
-            value1: 0,
+            changetext: '全城',
             value2: 'a',
             value3: "A",
             option1: [
-                { text: '全城', value: 0 },
-                { text: '白云区', value: 1 },
+                { text: '全城', value: '全城' },
+                { text: '越秀区', value: '越秀区'},
+                { text: '海珠区', value: '海珠区'},
+                { text: '天河区', value: '天河区'},
+                { text: '荔湾区', value: '荔湾区'},
+                { text: '番禺区', value: '番禺区'},
+                { text: '白云区', value: '白云区'},
+                { text: '花都区', value: '花都区'},
+                { text: '黄埔区', value: '黄埔区'},
+                { text: '南沙区', value: '南沙区'},
+                { text: '萝岗区', value: '萝岗区'},
+                { text: '增城区', value: '增城区'},
+                { text: '从化区', value: '从化区'},
             ],
             option2: [
                 { text: 'APP订票', value: 'a' },
@@ -64,31 +77,65 @@ export default {
             ],
             
 
-            //list数据
-            list: [],
+            
             loading: false,
             finished: false,
 
         }
     },
+    computed:{
+        address(){
+            return this.$store.state.address.address
+        }
+    },
+    created(){
+        this.requestAllAddress()
+    },
     methods: {
-    // onLoad() {
-    //   // 异步更新数据
-    //   // setTimeout 仅做示例，真实场景中一般为 ajax 请求
-    //   setTimeout(() => {
-    //     for (let i = 0; i < 10; i++) {
-    //       this.list.push(this.list.length + 1);
-    //     }
+        ...mapMutations('address',{
+            updateAddress:'updateAddress',
+        }),
+        menuChange(changetext){
+            console.log(changetext);
+            if(changetext=='全城'){
+                this.requestAllAddress()
+            }else{
+                this.requestSomeAddress(changetext)
+            }
+            
+        },  
+        //请求全部address
+        requestAllAddress(){
+            this.$request.get('/address/list').then(data=>{
+            console.log(data.data.data);
 
-    //     // 加载状态结束
-    //     this.loading = false;
+            // this.address=data.data.data
 
-    //     // 数据全部加载完成
-    //     if (this.list.length >= 40) {
-    //       this.finished = true;
-    //     }
-    //   }, 1000);
-    // },
+            // 不设置命名空间
+            // this.$store.commit('updateAddress',data.data.data)
+            
+            // 设置命名空间后
+            this.updateAddress(data.data.data)
+            })
+        }, 
+        //按区域分类请求
+        requestSomeAddress(dname){
+            this.$request.get('/address/list',{
+                params:{
+                    districtName:dname,
+                }
+            }).then(data=>{
+                console.log(data.data.data);
+
+                // this.address=data.data.data
+
+                // 不设置命名空间
+                // this.$store.commit('updateAddress',data.data.data)
+
+                //设置命名空间后
+                this.updateAddress(data.data.data)
+            })
+        },
 
   },
 }

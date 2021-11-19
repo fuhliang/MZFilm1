@@ -14,21 +14,25 @@
                 style="background:white;padding:15px;"
                 v-for="item in hot" :key="item.id"
                 
-                thumb="item.poster"
                 >
-                    <!-- <template #thumb style="witdh=100%">
-                        <img src="item.poster " alt="" style="witdh=100%">
-                    </template>     -->
+                    <template #thumb style="witdh=100%">
+                        <van-image
+                            height="100%"
+                            width="100%"
+                            fit="cover"
+                            :src="$request.baseUrl+item.poster"
+                        />
+                    </template>    
                     <template #title >
                         <p
                         style="font-size:16px;margin-top:12px" 
                         >{{item.name}}</p>
-                        <!-- <span>{{item.poster}}</span> -->
+                        <!-- <span>{{$request.baseUrl+item.poster}}</span> -->
                     </template>
                     <template #desc>
                         <span
-                        style="color: #797d82;display:block"
-                        >主演：{{item.director}}</span>
+                        style="color: #797d82;display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;width:190px"
+                        >主演：{{item.director}} {{item.actors}}</span>
                         <span style="color: #797d82;display:block">
                             {{item.nation}} | {{item.runtime}}分钟
                         </span>
@@ -44,21 +48,25 @@
                 style="background:white;padding:15px;"
                 v-for="item in now" :key="item.id"
                 
-                thumb=" item.poster"
                 >
                     <template #thumb style="witdh=100%">
-                        <img src="item.poster " alt="" style="witdh=100%">
+                        <van-image
+                            height="100%"
+                            width="100%"
+                            fit="cover"
+                            :src="$request.baseUrl+item.poster"
+                        />
                     </template>    
                     <template #title >
                         <p
                         style="font-size:16px;margin-top:12px" 
                         >{{item.name}}</p>
-                        <!-- <span>{{item.poster}}</span> -->
+                        
                     </template>
                     <template #desc>
                         <span
-                        style="color: #797d82;display:block"
-                        >主演：{{item.director}}</span>
+                        style="color: #797d82;display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;width:190px"
+                        >主演：{{item.director}} {{item.actors}}</span>
                         <span style="color: #797d82;display:block">
                             {{item.nation}} | {{item.runtime}}分钟
                         </span>
@@ -77,7 +85,7 @@
     </div>
 </template>
 <script>
-
+import {mapMutations} from 'vuex'
 export default {
 
     //电影
@@ -91,21 +99,57 @@ export default {
                 {title:"正在热映"},
                 {title:"即将上映"},
             ],
-            hot:[],
-            now:[],
+            
         }
     },
+    computed:{
+        hot(){
+            return this.$store.state.hot.hot
+        },
+        now(){
+            return this.$store.state.now.now
+        },
+    },
     created(){
-        this.$request.get('/hot/list').then(data=>{
+        this.requestAllHot()
+        this.requestAllNow()
+    },
+    methods:{
+        ...mapMutations('hot',{
+            updateHot:'updateHot',
+        }),
+        ...mapMutations('now',{
+            updateNow:'updateNow',
+        }),
+
+        //请求全部hot
+        requestAllHot(){
+            this.$request.get('/hot/list').then(data=>{
             console.log("hot",data.data.data);
             
-            this.hot=data.data.data
-            console.log(data.data.data[0].poster);
+            // this.hot=data.data.data
+
+            // 不设置命名空间
+            // this.$store.commit('updateHot',data.data.data)
+
+            // 设置命名空间后
+            this.updateHot(data.data.data)
         })
-        this.$request.get('/now/list').then(data=>{
+        },
+        //请求全部now
+        requestAllNow(){
+            this.$request.get('/now/list').then(data=>{
             console.log("now",data.data.data);
-            this.now=data.data.data
+
+            // this.now=data.data.data
+
+            // 不设置命名空间
+            // this.$store.commit('updateNow',data.data.data)
+
+            // 设置命名空间后
+            this.updateNow(data.data.data)
         })
+        }
     },
 }
 </script>
