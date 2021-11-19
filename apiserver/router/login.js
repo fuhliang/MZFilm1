@@ -15,8 +15,18 @@ router.get('/',async (req,res)=>{
     const data = await db(sql)
     //  console.log(data);
     if(data.length>0){
-        res.send(formatData())
+        // res.send(formatData(data))
+        res.send({
+            code:200,
+            data:data[0],
+            message:'success'
+        })
     }else{
-        res.send(formatData({code:400}))
+        // res.send(formatData({code:400}))
+        res.send({
+            code:400,
+            data:[],
+            message:'fail' 
+        })
     }
 })

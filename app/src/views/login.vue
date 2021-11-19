@@ -57,10 +57,10 @@ export default {
         }).then(({data})=>{
 
         // console.log('data=====',Object.prototype.toString(data.username));
-        console.log(data);
+        console.log('data======>',data);
         if(data.code === 200){
           this.$toast('登录成功')
-          localStorage.setItem('userInfo',JSON.stringify(data))
+          localStorage.setItem('userInfo',JSON.stringify(data.data))
         }else{
           this.$toast('用户名或密码错误')
         }

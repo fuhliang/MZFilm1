@@ -8,13 +8,28 @@ const {formatData} = require('../utils')
 
 router.post('/',async (req,res)=>{
     console.log('req.body==',(req.body))
-    const {key,value} = req.body;
-    console.log(key,value);
+
+    // { '{"data":{"username":"deew","password":"123456"}}': '' }
+
+    // const {data} = req.body;
+    // console.log(data);
     // console.log((req.body.data));
+    const b = JSON.stringify(req.body)
+    const daa = JSON.parse(b)
+    const daaaaa = (Object.keys(daa)[0]);
+    const obj = JSON.parse(daaaaa)
+    console.log('obj======>',obj);
+    const username = obj.data.username
+    const password = obj.data.password
+
+    console.log('username,password=====>',username,password);
+
+    // console.log('daaaaa=====>',daaaaa);
+    // console.log('daa====>',daa);
+    // console.log('b====>',b);
 
     // const userinfo = JSON.stringify(req.body)
-    console.log('username===',JSON.parse(req.body).data.username);
-    console.log('userinfo===',userinfo);
+
     const sql = `insert into users(username,password) values('${username}','${password}')`
 
     const data = await db(sql)

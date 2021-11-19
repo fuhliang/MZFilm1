@@ -25,7 +25,7 @@
     </div>
 </template>
 <script>
-import qs from 'qs'
+// import qs from 'qs'
 export default {
     name:'Reg',
      data() {
@@ -38,15 +38,17 @@ export default {
         onSubmit(values) {
         console.log('submit', values);
             this.$request.post('/reg',{
+                // Headers:{},
                 data: {
                     username:values.username,
                     password:values.password 
                     },
                 }).then(({data})=>{
                 console.log('data===', data);
-                console.log('data===', qs.stringify(data));
+                // console.log('data===', qs.stringify(data));
             })
         },
+        
     },
 }
 </script>
