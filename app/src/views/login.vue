@@ -48,6 +48,25 @@ export default {
       // values： 必须给表单元素添加name属性才能获取值
       console.log('values',values)
 
+      this.$request.get('/login',{
+        params:{
+          username:values.username,
+          password:values.password
+        }
+        
+        }).then(({data})=>{
+
+        // console.log('data=====',Object.prototype.toString(data.username));
+        console.log('data======>',data);
+        if(data.code === 200){
+          this.$toast('登录成功')
+          localStorage.setItem('userInfo',JSON.stringify(data.data))
+        }else{
+          this.$toast('用户名或密码错误')
+        }
+      })
+
+
     }
   }
 
