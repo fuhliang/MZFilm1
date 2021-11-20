@@ -21,7 +21,8 @@ const store = new Vuex.Store({
   },
   getters:{
     isLogin(state){
-      return !!state.userInfo._id
+        console.log(state.userInfo);
+      return !!state.userInfo.id
     }
   },
   mutations: {
@@ -52,7 +53,10 @@ const store = new Vuex.Store({
   actions: {
     async login(ctx,payload){
         console.log("payload",payload);
-      const {data} = await request.get("/login", payload);
+      const {data} = await request.get("/login", {
+          params:payload
+        
+      });
       if(data.code === 200){
           // 更新userInfo
         ctx.commit("login", data.data);

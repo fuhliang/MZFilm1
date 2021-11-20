@@ -37,7 +37,8 @@ var store = new _vuex["default"].Store({
   },
   getters: {
     isLogin: function isLogin(state) {
-      return !!state.userInfo._id;
+      console.log(state.userInfo);
+      return !!state.userInfo.id;
     }
   },
   mutations: {
@@ -76,7 +77,9 @@ var store = new _vuex["default"].Store({
             case 0:
               console.log("payload", payload);
               _context.next = 3;
-              return regeneratorRuntime.awrap(_request["default"].get("/login", payload));
+              return regeneratorRuntime.awrap(_request["default"].get("/login", {
+                params: payload
+              }));
 
             case 3:
               _ref = _context.sent;

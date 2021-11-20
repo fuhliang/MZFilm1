@@ -43,7 +43,9 @@ router.beforeEach(function (to, from, next) {
   // 访问后台页面都需要用户登录才能访问
   if (to.path.startsWith('/manage')) {
     // 判断是否登录
+    console.log(store.getters.isLogin);
     if (store.getters.isLogin) {
+        
       // 假设所有的用户都是好人,先放行，后校验
       // 如果用户已登录，则校验用户身份
       router.app.$request.get('/user/verify', {
@@ -51,6 +53,7 @@ router.beforeEach(function (to, from, next) {
           username: store.state.userInfo.username
         }
       }).then(({ data }) => {
+
         if (data.code === 401) {
           store.dispatch('logout')
           router.push({

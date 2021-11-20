@@ -10,7 +10,7 @@ const {formatData} = require('../utils')
 router.get('/list',async (req,res)=>{
     
 
-    const {page = 1, size = 10, districtName} = req.query //如果不传参数就会出问题，因此得加默认值page=1,size=10,  但order有可能有，有可能没有
+    const {page , size, districtName} = req.query
     //查询数据库商品的数据，把结果响应到前端
 
     //因为查询的数据太多，进行分页
@@ -23,9 +23,11 @@ router.get('/list',async (req,res)=>{
     if(districtName){
         sql+=` where districtName="${districtName}"`
     }
-
+    if(page && size){
     sql += ` limit ${idx},${qty}`
     //查询第idx的索引，查询size条数据响应到前端
+    }
+    
 
     const data = await db(sql)
     // res.send(formatData({data}))

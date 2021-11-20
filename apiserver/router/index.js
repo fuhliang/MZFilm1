@@ -7,6 +7,7 @@ const nowRouter = require('./now')
 const addressRouter= require('./address')
 const loginRouter = require('./login')
 const regRouter = require('./reg')
+const userRouter =require('./user')
 
 // 处理请求体参数
 router.use(
@@ -47,7 +48,20 @@ router.use(function(req,res,next){
     //     })
     // }
 
-    next();
+    // 处理复杂跨域中的预检请求
+    if(req.method=="OPTIONS") {
+        // res.header("Access-Control-Allow-Methods","PUT,POST,GET,PATCH,DELETE,OPTIONS");
+        // 设置响应头
+        res.set({
+            "Access-Control-Allow-Headers": "Content-Type,Content-Length, Authorization, Accept,X-Requested-With,aa",
+            "Access-Control-Allow-Methods":"PUT,POST,GET,PATCH,DELETE,OPTIONS"
+        });
+        res.sendStatus(200);/*让options请求快速返回*/
+    } else{
+        next();
+    }
+
+    
 })
 
 
@@ -58,6 +72,7 @@ router.use('/now',nowRouter)
 router.use('/address',addressRouter)
 router.use('/login',loginRouter)
 router.use('/reg',regRouter)
+router.use('/user',userRouter)
 
 
 
