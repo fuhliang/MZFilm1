@@ -1,6 +1,7 @@
 <template>
   <div>
       <van-nav-bar
+      style="color: azure;"
           title="卖座电影"
         />
     <van-swipe class="my-swipe" :autoplay="3000" indicator-color="white">
@@ -8,16 +9,19 @@
         ><img
           src="../assets/imgs/banner/1.jpg"
           style="width: 100%; height: 100%"
+          @click="gotoDetail(1)"
       /></van-swipe-item>
       <van-swipe-item
         ><img
           src="../assets/imgs/banner/2.jpg"
           style="width: 100%; height: 100%"
+          @click="gotoDetail(4)"
       /></van-swipe-item>
       <van-swipe-item
         ><img
           src="../assets/imgs/banner/3.jpg"
           style="width: 100%; height: 100%"
+          @click="gotoDetail(2)"
       /></van-swipe-item>
     </van-swipe>
 
@@ -25,27 +29,20 @@
       <van-tab v-for="item in titles" :key="item.title" :title="item.title">
         <div v-if="item.title == '正在热映'">
           <van-card
-            style="background: white; padding: 15px"
+            style="background: white; padding: 15px; border-bottom:1px solid #ededbb"
             v-for="item in hot"
             :key="item.id"
             :thumb="$request.baseUrl + item.poster"
-            @click-thumb="gotoDetail(item.id)"
-          >
-            <!-- <template #thumb style="witdh=100%">
-                        <van-image
-                            height="100%"
-                            width="100%"
-                            fit="cover"
-                            :src="$request.baseUrl+item.poster"
-                        />
-                    </template>     -->
+            @click-thumb="gotoDetail(item.id)">
             <template #title>
-              <p style="font-size: 16px; margin-top: 12px">{{ item.name }}</p>
-              <!-- <span>{{$request.baseUrl+item.poster}}</span> -->
+              <p style="font-size: 16px; margin: 12px 0 2px 5px;">{{ item.name }}</p>
             </template>
             <template #desc>
+              <span style="color: #797d82; margin: 5px">观众评分</span>
+              <span style="color: #ffb232; font-style: italic;">{{ item.grade }}</span>
               <span
                 style="
+                  margin: 5px;
                   color: #797d82;
                   display: block;
                   overflow: hidden;
@@ -53,39 +50,34 @@
                   white-space: nowrap;
                   width: 190px;
                 "
-                >主演：{{ item.director }} {{ item.actors }}</span
+                >主演：{{ item.actors }}</span
               >
-              <span style="color: #797d82; display: block">
+              <span style="color: #797d82; display: block; margin: 5px">
                 {{ item.nation }} | {{ item.runtime }}分钟
               </span>
             </template>
             <template #footer>
-              <van-button size="mini" class="goupiao">购票</van-button>
+              <van-button size="mini" class="goupiao" @click="gotoBuy(item.id)">购票</van-button>
             </template>
           </van-card>
         </div>
+
+
         <div v-if="item.title == '即将上映'">
           <van-card
-            style="background: white; padding: 15px"
+            style="background: white; padding: 15px; border-bottom:1px solid #ededbb"
             v-for="item in now"
             :key="item.id"
             :thumb="$request.baseUrl + item.poster"
             @click-thumb="gotoDetail(item.id)"
           >
-            <!-- <template #thumb style="witdh=100%">
-                        <van-image
-                            height="100%"
-                            width="100%"
-                            fit="cover"
-                            :src="$request.baseUrl+item.poster"
-                        />
-                    </template>     -->
             <template #title>
-              <p style="font-size: 16px; margin-top: 12px">{{ item.name }}</p>
+              <p style="font-size: 16px; margin: 12px 0 2px 5px;">{{ item.name }}</p>
             </template>
             <template #desc>
               <span
                 style="
+                  margin: 5px;
                   color: #797d82;
                   display: block;
                   overflow: hidden;
@@ -95,12 +87,12 @@
                 "
                 >主演：{{ item.director }} {{ item.actors }}</span
               >
-              <span style="color: #797d82; display: block">
+              <span style="color: #797d82; display: block; margin: 5px">
                 {{ item.nation }} | {{ item.runtime }}分钟
               </span>
             </template>
             <template #footer>
-              <van-button size="mini" class="goupiao">购票</van-button>
+              <van-button size="mini" class="goupiao" @click="gotoBuy(item.id)">预购</van-button>
             </template>
           </van-card>
         </div>
@@ -138,6 +130,14 @@ export default {
     gotoDetail(id) {
       this.$router.push({
         name: "NowPlaying",
+        params: {
+          id
+        },
+      });
+    },
+    gotoBuy(id) {
+      this.$router.push({
+        name: "Buy",
         params: {
           id
         },
@@ -204,7 +204,8 @@ export default {
   right: 25px;
 }
 .van-nav-bar__content,.van-nav-bar{
-    background-color: antiquewhite;
-    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    background-color: azure;
+    font-style: italic;
 }
+
 </style>
