@@ -40,10 +40,19 @@ const store = new Vuex.Store({
             state.addedRoute = true;
         }
     },
+    removeRoute(state){
+      console.log('removeRoute')
+      router.addRoute({
+        path:'/manage',
+        name:'Manage',
+        children:[]
+      })
+    }
   },
   actions: {
     async login(ctx,payload){
-      const {data} = await request.post("/login", payload);
+        console.log("payload",payload);
+      const {data} = await request.get("/login", payload);
       if(data.code === 200){
           // 更新userInfo
         ctx.commit("login", data.data);
@@ -54,6 +63,10 @@ const store = new Vuex.Store({
 
     //   把请求回来的数据返回组件（组件需要页面业务逻辑操作）
       return data;
+    },
+    logout(ctx){
+      ctx.commit('logout')
+      ctx.commit('removeRoute')
     }
   }
 });
