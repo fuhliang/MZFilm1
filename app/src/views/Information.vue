@@ -1,53 +1,42 @@
 <template>
-    <div>
-        <a>
-            <van-image
-           v-for="item in tparr"
-           :key="item.tp"
-            width="100%"
-            height="76"
-            :src='item.tp'
-            />  
-        </a>
-                 
-    </div>
+  <div>
+    <a>
+      <van-image
+        v-for="item in now"
+        :key="item.tp"
+        width="100%"
+        height="76"
+        :src="$request.baseUrl + item.filmType"
+      />
+    </a>
+    <a>
+      <img
+        width="100%"
+        height="76"
+        src="../assets/imgs/mine/10.jpg"
+      />
+    </a>
+  </div>
 </template>
 <script>
 export default {
-    //资讯
-    name:'Information',
-    data(){
-        return {
-            tparr:[
-                {
-                tp:"https://static.maizuo.com/v5/upload/3bc89e2ba260150a97fc96746c9b3000.jpg"
-                },
-                {
-                tp:"https://static.maizuo.com/v5/upload/0dbf59759aed7ee03091d33448bdb01b.jpg"
-                },
-                {
-                tp:"https://static.maizuo.com/v5/upload/d9d92408fb06b073e28414d7692407c9.jpg"
-                },
-                {
-                tp:"https://static.maizuo.com/v5/upload/5729d8af9ff8ca2a4069497b15aa6f23.jpg"
-                },
-                {
-                tp:"https://static.maizuo.com/v5/upload/da36c8f4736befb08236d2f0aaebf04f.jpg"
-                },
-                {
-                tp:"https://static.maizuo.com/v5/upload/b08d99f2619ebc073fecb65a309b10a5.jpg"
-                },
-                {
-                tp:"https://static.maizuo.com/v5/upload/c794bf14470c639435c8a504cdca1056.jpg"
-                },
-                {
-                tp:"https://static.maizuo.com/v5/upload/0a523a8524d399dfbd1ce69d42802a02.jpg"
-                },
-                {
-                tp:"https://static.maizuo.com/v5/upload/149e334c6d638e7593168ba197dc510d.jpg"
-                },
-            ]
-        }
-    }
-}
+  //资讯
+  name: "Information",
+  data() {
+    return {
+      now: [],
+    };
+  },
+  created() {
+    this.$request.get("/now/list").then((data) => {
+      console.log("now", data.data.data);
+      this.now = data.data.data;
+    });
+  },
+};
 </script>
+<style scoped>
+img{
+    margin-bottom: 2.5rem;
+}
+</style>

@@ -10,6 +10,7 @@ import Cinema from '../views/Cinema.vue'
 import Information from '../views/Information.vue'
 import Mine from '../views/Mine.vue'
 import NowPlaying from '../views/NowPlaying.vue'
+import Buy from '../views/Buy.vue'
 
 
 // 3. 安装路由插件
@@ -44,9 +45,14 @@ const router = new VueRouter({
       component:Information
     },
     {
-      path:'/nowPalying',
+      path:'/nowPalying/:id',
       component:NowPlaying,
       name:"NowPlaying"
+    },
+    {
+      path:'/buy/:id',
+      component:Buy,
+      name:"Buy"
     },
     
   ]
