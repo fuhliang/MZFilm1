@@ -45,7 +45,15 @@ export default {
                     },
                 }).then(({data})=>{
                 console.log('data===', data);
-                // console.log('data===', qs.stringify(data));
+
+
+                const result = data
+                if(result.code === 200){
+                    this.$toast('注册成功')
+                    this.$router.push('/login')
+                }
+
+                
             })
         },
         

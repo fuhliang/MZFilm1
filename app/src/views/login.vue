@@ -61,6 +61,7 @@ export default {
         if(data.code === 200){
           this.$toast('登录成功')
           localStorage.setItem('userInfo',JSON.stringify(data.data))
+          this.$router.push('/mine')
         }else{
           this.$toast('用户名或密码错误')
         }
