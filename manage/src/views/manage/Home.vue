@@ -1,6 +1,6 @@
 <template>
     <div>
-        Home
+        首页
     </div>
 </template>
 <script>

@@ -43,7 +43,7 @@ router.beforeEach(function (to, from, next) {
   // 访问后台页面都需要用户登录才能访问
   if (to.path.startsWith('/manage')) {
     // 判断是否登录
-    console.log(store.getters.isLogin);
+    
     if (store.getters.isLogin) {
         
       // 假设所有的用户都是好人,先放行，后校验

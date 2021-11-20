@@ -34,22 +34,73 @@ router.get('/list',async (req,res)=>{
     res.send(formatData.success(data))
 })
 
+// 添加商品
 // post /api/address
-router.post('/',(req,res)=>{
+router.post('/', async(req,res)=>{
 
-    res.send()
+    const {form}=req.body
+    console.log("form",form);
+    const {name,address,districtName,lowPrice} = form;
+    console.log('req.body',req.body)
+    const sql = `insert into address(name,address,districtName,lowPrice) values('${name}','${address}','${districtName}','${lowPrice}')`
+
+    const data = await db(sql)
+    console.log("data",data);
+    if(data.insertId){
+        
+        res.send(formatData())
+    }else{
+        
+        res.send(formatData({code:400}))
+    }
+
+    
 })
 
+//删除单个商品
 // delete /api/address/3
-router.delete('/:id',(req,res)=>{
+router.delete('/:id', async(req,res)=>{
 
-    res.send()
+    const {id} = req.params;
+    console.log('req.params',req.params)
+    const sql=`delete from address where id=${id}`
+
+    const data = await db(sql)
+    console.log("data",data);
+    if(data.affectedRows){
+        
+        res.send(formatData())
+    }else{
+        
+        res.send(formatData({code:400}))
+    }
 })
 
+// 更新商品
 // put /api/address/3
-router.put('/:id',(req,res)=>{
+router.put('/:id', async(req,res)=>{
+    const {id}=req.params
+    console.log(id);
 
-    res.send()
+    const {form}=req.body
+    console.log("form",form);
+
+    const {name,address,districtName,lowPrice} = form;
+    console.log('req.body',req.body)
+    let sql = `update address set name='${name}',address='${address}',districtName='${districtName}',lowPrice='${lowPrice}'  where id=${id}`
+
+
+    console.log("sql",sql);
+    const data = await db(sql)
+    console.log("data",data);
+    if(data.changedRows){
+        
+        res.send(formatData())
+    }else{
+        
+        res.send(formatData({code:400}))
+    }
+
 })
 
 //通过id查询
@@ -60,8 +111,9 @@ router.get('/:id',async(req,res)=>{
     // console.log(id);
 
     const sql=`select *from address where id='${id}'`
-    const data=await db(sql)
-
+    let data=await db(sql)
+    console.log(JSON.parse(JSON.stringify(data[0])));
+    data=JSON.parse(JSON.stringify(data[0]))
     res.send(formatData.success(data))
 
 })

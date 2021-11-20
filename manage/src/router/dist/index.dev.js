@@ -29,7 +29,20 @@ var router = new _vueRouter["default"]({
   {
     path: '/login',
     component: _Login["default"]
-  }]
+  }] //保持滚动条
+  //   scrollBehavior(to,from,savePosition){
+  //     //savePosition:当前页面滚动的位置,格式{x,y}
+  //     return new Promise((resolve,reject)=>{
+  //         setTimeout(()=>{
+  //             if(!savePosition){
+  //                 savePosition={}
+  //             }
+  //             savePosition.behavior="smooth",
+  //             resolve(savePosition)   
+  //         },500)
+  //     })
+  //   }
+
 }); // const originalPush = VueRouter.prototype.push
 // VueRouter.prototype.push = function push (location) {
 //   return originalPush.call(this, location).catch(err => err)

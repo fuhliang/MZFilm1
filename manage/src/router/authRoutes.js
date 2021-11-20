@@ -7,10 +7,10 @@ import UserList from '@/views/manage/user/List.vue'
 import UserAdd from '@/views/manage/user/Add.vue'
 import UserEdit from '@/views/manage/user/Edit.vue'
 
-import Goods from '@/views/manage/goods/Default.vue'
-import GoodsList from '@/views/manage/goods/List.vue'
-import GoodsAdd from '@/views/manage/goods/Add.vue'
-import GoodsEdit from '@/views/manage/goods/Edit.vue'
+import Address from '@/views/manage/address/Default.vue'
+import AddressList from '@/views/manage/address/List.vue'
+import AddressAdd from '@/views/manage/address/Add.vue'
+import AddressEdit from '@/views/manage/address/Edit.vue'
 
 export default {
     path:'/manage',
@@ -45,20 +45,20 @@ export default {
         },
         // 商品
         {
-            path:'goods',
-            component:Goods,
+            path:'address',
+            component:Address,
             children:[
                 {
                     path:'list',
-                    component:GoodsList,
+                    component:AddressList,
                 },
                 {
                     path:'add',
-                    component:GoodsAdd,
+                    component:AddressAdd,
                 },
                 {
                     path:'edit/:id',
-                    component:GoodsEdit,
+                    component:AddressEdit,
                 },
             ]
         },

@@ -1,7 +1,8 @@
 <template>
     <div>
-        商品管理
+        <!-- <keep-alive include="AddressList"> -->
         <router-view/>
+        <!-- </keep-alive> -->
     </div>
 </template>
 <script>

@@ -47,8 +47,6 @@ _router["default"].beforeEach(function (to, from, next) {
 
   if (to.path.startsWith('/manage')) {
     // 判断是否登录
-    console.log(_store["default"].getters.isLogin);
-
     if (_store["default"].getters.isLogin) {
       // 假设所有的用户都是好人,先放行，后校验
       // 如果用户已登录，则校验用户身份

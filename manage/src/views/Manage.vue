@@ -82,16 +82,16 @@ export default {
           ],
         },
         {
-          text: "商品管理",
-          path: "/goods",
+          text: "影院管理",
+          path: "/address",
           icon: "el-icon-shopping-bag-1",
           submenu: [
             {
-              text: "添加商品",
+              text: "添加影院",
               path: "/add",
             },
             {
-              text: "商品列表",
+              text: "影院列表",
               path: "/list",
             },
           ],

@@ -21,7 +21,20 @@ const router = new VueRouter({
       path:'/login',
       component:Login,
     },
-  ]
+  ],
+  //保持滚动条
+//   scrollBehavior(to,from,savePosition){
+//     //savePosition:当前页面滚动的位置,格式{x,y}
+//     return new Promise((resolve,reject)=>{
+//         setTimeout(()=>{
+//             if(!savePosition){
+//                 savePosition={}
+//             }
+//             savePosition.behavior="smooth",
+//             resolve(savePosition)   
+//         },500)
+//     })
+//   }
 })
 
 // const originalPush = VueRouter.prototype.push
