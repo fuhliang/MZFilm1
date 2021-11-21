@@ -99,8 +99,19 @@ router.put('/',async function(req,res){
 
     // console.log('put.body',req.body.password,req.body.id);
 
-    const {password,id} = req.body;
+    // const {password,id} = req.body;
+    const {password,name,id} = req.body;
 
+    const userdata = req.body
+
+    console.log('userdata===>',userdata);
+
+    console.log('userdata.password.password===',userdata.password.password);
+    console.log('userdata.password.name===',userdata.password.name);
+    console.log('userdata===',userdata);
+
+
+    // let sql=`update users set password='${password}' where id=${id}`
     let sql=`update users set password='${password}' where id=${id}`
 
     const data = await db(sql)
@@ -113,7 +124,7 @@ router.put('/',async function(req,res){
 
 // get /api/user/list
 router.get('/list',async (req,res)=>{
-    const {page=1,size=2,animeclass} = req.query;
+    const {page=1,size=10,animeclass} = req.query;
 
     // 计算索引值
     const idx = (page-1)*size
@@ -128,6 +139,12 @@ router.get('/list',async (req,res)=>{
     }
 
     sql += ` limit ${idx},${qty}`
+
+    // if(page && size){
+    //     sql += ` limit ${idx},${qty}`
+    //     //查询第idx的索引，查询size条数据响应到前端
+    //     }
+
 
     const data = await db(sql)
     res.send({
