@@ -23,7 +23,17 @@ router.get('/verify',async (req,res)=>{
 router.post('/',async function(req,res){
     const {username,password} = req.body;
 
-    const sql = `insert into users(username,password) values('${username}','${password}')`
+	console.log('req.body=====>',req.body);
+	
+	const userinfo = req.body;
+	
+	const name = userinfo.data.username;
+	const pwd = userinfo.data.password;
+	
+	
+	console.log('username,password=====>',name,pwd);
+	
+    const sql = `insert into users(username,password) values('${name}','${pwd}')`
 
     console.log('cartpout',sql);
 
