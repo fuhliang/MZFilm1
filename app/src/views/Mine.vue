@@ -7,21 +7,33 @@
             </div>
             
             <div class="login">
-                <p style="color:white" @click="gotologin">立即登录</p>
+                <!-- <p style="color:white" @click="gotologin" >立即登录</p> -->
+                <p style="color:white" @click="gotologin" >{{this.name ? this.name : '立即登录'}} </p>
+                <span @click="logout"> {{this.name ? '退出登录' : ' '}}</span>
             </div>
             
         </div>
-        <van-grid clickable :column-num="2">
-            <!-- <van-icon name="coupon" /> -->
-            <van-grid-item icon="coupon-o" text="电影订单" to="/login" />
-            <van-grid-item icon="orders-o" text="商品订单" url="/login" />
-        </van-grid>
+        <div class="order">
+            <van-grid clickable :column-num="2">
+                <!-- <van-icon name="coupon" /> -->
+                <van-grid-item icon="coupon-o" text="电影订单" to="/login" />
+                <van-grid-item icon="orders-o" text="商品订单" to="/login" />
+            </van-grid>
+        </div>
+
 
         <div class="conent">
           <ul >
             <li v-for="item in items" :key="item.name">
-                <van-icon name='item.icon'/>
+                <span class="icon">
+                    <van-icon name="balance-pay" size="25" color="#ee0a24" />
+                    <!-- {{item.icon}} -->
+                </span>
                 <p>{{item.name}}</p>
+                <p class="ricon">
+                  <van-icon name="arrow" size="10" />  
+                </p>
+                
             </li>
           </ul>  
         </div>
@@ -33,39 +45,72 @@
 export default {
     //我的
     name:'Mine',
-  data(){
-    return {
-        items:[
-            {
-                icon:'coupon-o',
-                name:'卖座劵'
-            },
-            {
-                icon:'coupon-o',
-                name:'组合红包'
-            },
-            {
-                icon:'coupon-o',
-                name:'余额'
-            },
-            {
-                icon:'coupon-o',
-                name:'设置'
-            },
-        ]
-    }
-  },
+    data(){
+        return {
+            // name:{satte:'立即登录'},
+            name:'',
+            items:[
+                {
+                    icon:"cash-on-deliver" ,
+                    name:'卖座劵'
+                },
+                {
+                    icon:'cash-on-deliver',
+                    name:'组合红包'
+                },
+                {
+                    icon:'coupon-o',
+                    name:'余额',
+                    money:'10'
+                },
+                {
+                    icon:'coupon-o',
+                    name:'设置'
+                },
+            ],
+            
+        }
+    },
+    created(){
+        if(localStorage.getItem('userInfo')){    
+            let {username} = JSON.parse(localStorage.getItem('userInfo'))
+            console.log('username  >',{username});
+            this.name = username
+            console.log(this);
+        }
+
+    },
     methods:{
         gotologin(){
             this.$router.push('/login')
+        },
+        logout(){
+            let {username} = JSON.parse(localStorage.getItem('userInfo'))
+            console.log('username===>',username);
+            if(username){
+                window.localStorage.removeItem('userInfo')
+                this.$router.go(0)
+            }
         }
+
     }
 }
 </script>
 <style scoped>
-/* .app{
-    background-color: #e6e0e0;
-} */
+.ricon{
+    float: right;
+    margin: 0 auto;
+    margin-top: 17px;    margin-right: 17px;
+}
+.order{
+    height: 96px;
+    background-color:#F4F4F4 ;
+}
+.icon{
+    display: inline-block;
+    margin: 0px 20px;
+    margin-top: 16px;
+}
 .minetop{
     background-image: url('https://assets.maizuo.com/h5/v5/public/app/img/bg.a5bdd690.png');
     height: 180px;
@@ -97,7 +142,7 @@ export default {
 ul{
     background-color: white;
     height: 150px;
-    margin-top: 10px;
+    /* margin-top: 10px; */
 }
 ul li{
     height: 36px;
@@ -106,6 +151,5 @@ ul li{
 }
 ul li p{
     display: inline-block;
-    margin-left: 50px;
 }
 </style>
