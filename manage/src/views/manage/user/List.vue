@@ -25,7 +25,7 @@
       </el-table-column>
 
       <el-table-column prop="regtime" label="注册时间" v-slot="{row}">
-          {{formatDate(row.regtime)}}
+          {{formatDate(row.createtime)}}
       </el-table-column>
       <el-table-column label="操作" v-slot="{row}">
           <el-button type="primary" size="small" @click="editItem(row.id)">编辑</el-button>

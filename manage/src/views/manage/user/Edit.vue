@@ -58,6 +58,7 @@ export default {
        },
     created(){
         const {id} = this.$route.params
+        // console.log('this.$router.params.id===>',this.$router.params.id);
         console.log('id',id);
         
         this.getItem(id)
@@ -98,11 +99,29 @@ export default {
         })
       },
       
-      async updateDate(password,id){
-        //   const {data}=await this.$request.put('/user/'+this.item.id,{password})
-          const {data}=await this.$request.put('/user',{password,id})
-        //   const {data}=await this.$request.put('/user/'+{form})
+      async updateDate(item){
+          // const {id} = this.$route.params
+          // const {data}=await this.$request.put('/user',{
+          //   params:{
+          //     id:id,
+          //     password:item.password
+          //   }
+          // })
+
+          const {id} = this.$route.params
+          const {data}=await this.$request.put('/user',{
+            params:{
+              id:id,
+              name:item.name,
+              password:item.password
+            }
+          })
+
           console.log('this is the data',data);
+
+
+
+
           return data
       },
     }
