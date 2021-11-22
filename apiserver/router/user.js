@@ -29,7 +29,7 @@ router.post('/',async function(req,res){
 	
 	const name = userinfo.data.username;
 	const pwd = userinfo.data.password;
-	
+
 	
 	console.log('username,password=====>',name,pwd);
 	
@@ -97,22 +97,23 @@ router.delete('/:id',async function(req,res){
 // put 修改用户信息(密码)
 router.put('/',async function(req,res){
 
-    // console.log('put.body',req.body.password,req.body.id);
-
-    // const {password,id} = req.body;
-    const {password,name,id} = req.body;
-
     const userdata = req.body
 
-    console.log('userdata===>',userdata);
+    console.log('userdata========>',userdata);
 
-    console.log('userdata.password.password===',userdata.password.password);
-    console.log('userdata.password.name===',userdata.password.name);
-    console.log('userdata===',userdata);
+    console.log('userdata.password.password===',userdata.params.password);
+    console.log('userdata.password.id===',userdata.params.id);
+    console.log('userdata.password.name===',userdata.params.name);
 
+    const password = userdata.params.password;
+    console.log('password===>',password);
+    const id = userdata.params.id;
+    console.log('id===>',id);
+    const name  = userdata.params.name;
+    console.log('name===>',name);
 
     // let sql=`update users set password='${password}' where id=${id}`
-    let sql=`update users set password='${password}' where id=${id}`
+    let sql=`update users set password='${password}',username='${name}'  where id=${id}`
 
     const data = await db(sql)
     res.send({
@@ -121,6 +122,9 @@ router.put('/',async function(req,res){
         msg:'success'
     })
 })
+
+
+
 
 // get /api/user/list
 router.get('/list',async (req,res)=>{
@@ -161,7 +165,7 @@ router.get('/:id',async (req,res)=>{
     const sql = `select * from users where id=${id}`
 
     const data = await db(sql)
-    console.log('user=',data);
+    // console.log('user=',data);
 
     res.send({
         code:200,
