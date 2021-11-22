@@ -3,7 +3,7 @@
         
         <div class='minetop'>
             <div class="logo">
-               <img src="https://img01.yzcdn.cn/vant/cat.jpeg" alt="" > 
+               <img src="../assets/imgs/mine/cat.jpeg" alt="" > 
             </div>
             
             <div class="login">
@@ -16,8 +16,8 @@
         <div class="order">
             <van-grid clickable :column-num="2">
                 <!-- <van-icon name="coupon" /> -->
-                <van-grid-item icon="coupon-o" text="电影订单" to="/login" />
-                <van-grid-item icon="orders-o" text="商品订单" to="/login" />
+                <van-grid-item icon="coupon-o" text="电影订单" />
+                <van-grid-item icon="orders-o" text="商品订单" />
             </van-grid>
         </div>
 
@@ -112,7 +112,7 @@ export default {
     margin-top: 16px;
 }
 .minetop{
-    background-image: url('https://assets.maizuo.com/h5/v5/public/app/img/bg.a5bdd690.png');
+    background-image: url('../assets/imgs/mine/background.png');
     height: 180px;
 }
 .logo{
