@@ -1,6 +1,6 @@
 <template>
     <div>
-        首页
+        <el-empty description="空空的首页"></el-empty>
     </div>
 </template>
 <script>

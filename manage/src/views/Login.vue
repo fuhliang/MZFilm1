@@ -116,12 +116,12 @@ export default {
 
             this.$router.push(redirectTo);
           } else {
-            if (data.code === 401) {
+            if (data.code === 400) {
               this.$message({
                 message: "验证码错误",
                 type: "error",
               });
-            } else if (data.code === 400) {
+            } else if (data.code === 401) {
               this.errorMsg = "用户名或密码错误";
             }
             // this.getVcode();

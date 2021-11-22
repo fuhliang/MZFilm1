@@ -23,7 +23,17 @@ router.get('/verify',async (req,res)=>{
 router.post('/',async function(req,res){
     const {username,password} = req.body;
 
-    const sql = `insert into users(username,password) values('${username}','${password}')`
+	console.log('req.body=====>',req.body);
+	
+	const userinfo = req.body;
+	
+	const name = userinfo.data.username;
+	const pwd = userinfo.data.password;
+
+	
+	console.log('username,password=====>',name,pwd);
+	
+    const sql = `insert into users(username,password) values('${name}','${pwd}')`
 
     console.log('cartpout',sql);
 
@@ -87,11 +97,23 @@ router.delete('/:id',async function(req,res){
 // put 修改用户信息(密码)
 router.put('/',async function(req,res){
 
-    // console.log('put.body',req.body.password,req.body.id);
+    const userdata = req.body
 
-    const {password,id} = req.body;
+    console.log('userdata========>',userdata);
 
-    let sql=`update users set password='${password}' where id=${id}`
+    console.log('userdata.password.password===',userdata.params.password);
+    console.log('userdata.password.id===',userdata.params.id);
+    console.log('userdata.password.name===',userdata.params.name);
+
+    const password = userdata.params.password;
+    console.log('password===>',password);
+    const id = userdata.params.id;
+    console.log('id===>',id);
+    const name  = userdata.params.name;
+    console.log('name===>',name);
+
+    // let sql=`update users set password='${password}' where id=${id}`
+    let sql=`update users set password='${password}',username='${name}'  where id=${id}`
 
     const data = await db(sql)
     res.send({
@@ -101,9 +123,12 @@ router.put('/',async function(req,res){
     })
 })
 
+
+
+
 // get /api/user/list
 router.get('/list',async (req,res)=>{
-    const {page=1,size=2,animeclass} = req.query;
+    const {page=1,size=10,animeclass} = req.query;
 
     // 计算索引值
     const idx = (page-1)*size
@@ -118,6 +143,12 @@ router.get('/list',async (req,res)=>{
     }
 
     sql += ` limit ${idx},${qty}`
+
+    // if(page && size){
+    //     sql += ` limit ${idx},${qty}`
+    //     //查询第idx的索引，查询size条数据响应到前端
+    //     }
+
 
     const data = await db(sql)
     res.send({
@@ -134,7 +165,7 @@ router.get('/:id',async (req,res)=>{
     const sql = `select * from users where id=${id}`
 
     const data = await db(sql)
-    console.log('user=',data);
+    // console.log('user=',data);
 
     res.send({
         code:200,
