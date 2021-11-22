@@ -1,5 +1,11 @@
 <template>
     <div>
+        <el-breadcrumb separator-class="el-icon-arrow-right" style="margin-bottom:20px">
+            <el-breadcrumb-item :to="{ path: '/manage/home' }">首页</el-breadcrumb-item>
+            <el-breadcrumb-item>影院管理</el-breadcrumb-item>
+            <el-breadcrumb-item>影院列表</el-breadcrumb-item>
+        </el-breadcrumb>
+
     <el-table :data="tableData" stripe style="width: 100%" @selection-change="selectItem">
         <!-- <el-table-column
       type="selection"
@@ -88,11 +94,11 @@ export default {
           center: true
         }).then(() => {
             const data= this.deleteData(id)
-            if(data.code==200){
+            if(data){
                 this.$message({
                     type: 'success',
                     message: '删除成功!'
-                });
+                })
                 this.$router.go(0)
             }
           

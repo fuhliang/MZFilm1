@@ -1,5 +1,10 @@
 <template>
     <div>
+        <el-breadcrumb separator-class="el-icon-arrow-right" style="margin-bottom:20px">
+            <el-breadcrumb-item :to="{ path: '/manage/home' }">首页</el-breadcrumb-item>
+            <el-breadcrumb-item>影院管理</el-breadcrumb-item>
+            <el-breadcrumb-item>添加影院</el-breadcrumb-item>
+        </el-breadcrumb>
     <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
   <el-form-item label="影院名" prop="name">
     <el-input v-model="ruleForm.name" style="width:570px"></el-input>

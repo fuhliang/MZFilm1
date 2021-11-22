@@ -97,45 +97,7 @@ export default {
             },
           ],
         },
-        {
-          text: "订单管理",
-          path: "/order",
-          icon: "el-icon-s-order",
-        },
-        {
-          text: "广告管理",
-          path: "/ad",
-          icon: "el-icon-data-board",
-          submenu: [
-            {
-              text: "添加广告",
-              path: "/ad",
-            },
-            {
-              text: "广告列表",
-              path: "/list",
-            },
-          ],
-        },
-        {
-          text: "角色权限",
-          path: "/access",
-          icon: "el-icon-key",
-          submenu: [
-            {
-              text: "添加角色",
-              path: "/add",
-            },
-            {
-              text: "角色列表",
-              path: "/list",
-            },
-            {
-              text: "权限指派",
-              path: "/set",
-            },
-          ],
-        },
+        
       ],
       currentIndex: 0,
     };

@@ -1,6 +1,12 @@
 <template>
     
     <div>
+         <el-breadcrumb separator-class="el-icon-arrow-right" style="margin-bottom:20px">
+            <el-breadcrumb-item :to="{ path: '/manage/home' }">首页</el-breadcrumb-item>
+            <el-breadcrumb-item>影院管理</el-breadcrumb-item>
+            <el-breadcrumb-item>编辑影院</el-breadcrumb-item>
+        </el-breadcrumb>
+
         <el-descriptions title="影院信息" :column="1" border>
             <el-descriptions-item label="id" >{{item.id}}</el-descriptions-item>
             <el-descriptions-item label="影院名" >{{item.name}}</el-descriptions-item>

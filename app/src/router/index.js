@@ -18,7 +18,10 @@ Vue.use(VueRouter)
 // 4. 实例化路由，并配置参数
 const router = new VueRouter({
   routes:[
-    
+    {
+        path:'/',
+        redirect:'/home',
+    },
     {
       path:'/home',
       component:Home,
