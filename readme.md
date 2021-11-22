@@ -2,8 +2,8 @@
 
 ## 演示
 * 官网：https://m.maizuo.com/v5/#/films/nowPlaying
-* webApp：
-* 后台管理系统：
+* webApp：120.78.229.74:8080
+* 后台管理系统：120.78.229.74:8081
     * 测试账号
         * 账号：admin
         * 密码：123456
@@ -28,4 +28,10 @@
 ![](./imgs/2.png)
 ![](./imgs/3.png) -->
 
-<img src="./img/4.png" style="width:200px" />
+<img src="./img/卖座电影1.png" style="width:400px" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="./img/卖座电影2.png" style="width:400px" /> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;    <img src="./img/卖座电影3.png" style="width:400px" />
+<img src="./img/卖座电影4.png" style="width:400px" />
+<img src="./img/卖座电影5.png" style="width:400px" />
+<br/>
+<img src="./img/卖座后台1.png" style="width:1000px" />
+<br/>
+<img src="./img/卖座后台2.png" style="width:1000px" />
