@@ -29,7 +29,7 @@ export default {
   },
   created() {
     this.$request.get("/now/list").then((data) => {
-      console.log("now", data.data.data);
+      // console.log("now", data.data.data);
       this.now = data.data.data;
     });
   },

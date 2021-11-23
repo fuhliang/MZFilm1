@@ -36,7 +36,7 @@ export default {
     }
   },
   created() {
-    console.log("Login", this);
+    // console.log("Login", this);
   },
   methods:{
 
@@ -46,7 +46,7 @@ export default {
 
     onSubmit(values){
       // values： 必须给表单元素添加name属性才能获取值
-      console.log('values',values)
+      // console.log('values',values)
 
       this.$request.get('/login',{
         params:{
@@ -57,7 +57,7 @@ export default {
         }).then(({data})=>{
 
         // console.log('data=====',Object.prototype.toString(data.username));
-        console.log('data======>',data);
+        // console.log('data======>',data);
         if(data.code === 200){
           this.$toast('登录成功')
           localStorage.setItem('userInfo',JSON.stringify(data.data))

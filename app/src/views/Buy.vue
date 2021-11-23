@@ -102,10 +102,10 @@ export default {
     created(){
         this.requestAllAddress()
         const { id } = this.$route.params;
-        console.log("id", id);
+        // console.log("id", id);
 
         this.$request.get("/hot/" + id).then(({data}) => {
-        console.log("hot", data.data);
+        // console.log("hot", data.data);
 
         this.hot = data.data;
         this.hot_name = data.data[0].name;
@@ -126,7 +126,7 @@ export default {
             updateAddress:'updateAddress',
         }),
         menuChange(changetext){
-            console.log(changetext);
+            // console.log(changetext);
             if(changetext=='全城'){
                 this.requestAllAddress()
             }else{
@@ -137,7 +137,7 @@ export default {
         //请求全部address
         requestAllAddress(){
             this.$request.get('/address/list').then(data=>{
-            console.log(data.data.data);
+            // console.log(data.data.data);
 
             // this.address=data.data.data
 
@@ -155,7 +155,7 @@ export default {
                     districtName:dname,
                 }
             }).then(data=>{
-                console.log(data.data.data);
+                // console.log(data.data.data);
 
                 // this.address=data.data.data
 

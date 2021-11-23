@@ -96,7 +96,7 @@ export default {
             updateAddress:'updateAddress',
         }),
         menuChange(changetext){
-            console.log(changetext);
+            // console.log(changetext);
             if(changetext=='全城'){
                 this.requestAllAddress()
             }else{
@@ -107,7 +107,7 @@ export default {
         //请求全部address
         requestAllAddress(){
             this.$request.get('/address/list').then(data=>{
-            console.log(data.data.data);
+            // console.log(data.data.data);
 
             // this.address=data.data.data
 
@@ -125,7 +125,7 @@ export default {
                     districtName:dname,
                 }
             }).then(data=>{
-                console.log(data.data.data);
+                // console.log(data.data.data);
 
                 // this.address=data.data.data
 

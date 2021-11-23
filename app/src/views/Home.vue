@@ -33,7 +33,10 @@
             v-for="item in hot"
             :key="item.id"
             :thumb="$request.baseUrl + item.poster"
-            @click-thumb="gotoDetail(item.id)">
+            @click-thumb="gotoDetail({
+              id:item.id,
+              table_name:'hot'
+            })">
             <template #title>
               <p style="font-size: 16px; margin: 12px 0 2px 5px;">{{ item.name }}</p>
             </template>
@@ -69,7 +72,10 @@
             v-for="item in now"
             :key="item.id"
             :thumb="$request.baseUrl + item.poster"
-            @click-thumb="gotoDetail(item.id)"
+            @click-thumb="gotoDetail({
+              id:item.id,
+              table_name:'now'
+            })"
           >
             <template #title>
               <p style="font-size: 16px; margin: 12px 0 2px 5px;">{{ item.name }}</p>
@@ -127,12 +133,15 @@ export default {
     this.requestAllNow();
   },
   methods: {
-    gotoDetail(id) {
+    gotoDetail({id,table_name}) {
       this.$router.push({
         name: "NowPlaying",
         params: {
           id
         },
+        query:{
+          table_name
+        }
       });
     },
     gotoBuy(id) {
@@ -154,7 +163,7 @@ export default {
     //请求全部hot
     requestAllHot() {
       this.$request.get("/hot/list").then((data) => {
-        console.log("hot", data.data.data);
+        // console.log("hot", data.data.data);
 
         // this.hot=data.data.data
 
@@ -168,7 +177,7 @@ export default {
     //请求全部now
     requestAllNow() {
       this.$request.get("/now/list").then((data) => {
-        console.log("now", data.data.data);
+        // console.log("now", data.data.data);
 
         // this.now=data.data.data
 

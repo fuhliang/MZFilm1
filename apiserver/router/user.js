@@ -1,39 +1,17 @@
 const express = require('express')
+const db = require('../db')
+
 const router = express.Router();
 module.exports = router;
 
-const db = require('../db')
-const {formatData} = require('../utils')
-const token=require('../utils/token')
 
-//校验用户token: /api/user/verify
-router.get('/verify',async (req,res)=>{
-    const Authorization = req.get('Authorization')
-
-    const result = token.verify(Authorization)
-    
-    res.send(formatData({
-        code: result ? 200 : 400
-    }))
-     
-})
-
+// const {formatData}=require('../utils')
 
 // post 添加用户
 router.post('/',async function(req,res){
     const {username,password} = req.body;
 
-	console.log('req.body=====>',req.body);
-	
-	const userinfo = req.body;
-	
-	const name = userinfo.data.username;
-	const pwd = userinfo.data.password;
-
-	
-	console.log('username,password=====>',name,pwd);
-	
-    const sql = `insert into users(username,password) values('${name}','${pwd}')`
+    const sql = `insert into users(username,password) values('${username}','${password}')`
 
     console.log('cartpout',sql);
 
@@ -93,27 +71,14 @@ router.delete('/:id',async function(req,res){
     // )
 })
 
-
 // put 修改用户信息(密码)
 router.put('/',async function(req,res){
 
-    const userdata = req.body
+    // console.log('put.body',req.body.password,req.body.id);
 
-    console.log('userdata========>',userdata);
+    const {password,id} = req.body;
 
-    console.log('userdata.password.password===',userdata.params.password);
-    console.log('userdata.password.id===',userdata.params.id);
-    console.log('userdata.password.name===',userdata.params.name);
-
-    const password = userdata.params.password;
-    console.log('password===>',password);
-    const id = userdata.params.id;
-    console.log('id===>',id);
-    const name  = userdata.params.name;
-    console.log('name===>',name);
-
-    // let sql=`update users set password='${password}' where id=${id}`
-    let sql=`update users set password='${password}',username='${name}'  where id=${id}`
+    let sql=`update users set password='${password}' where id=${id}`
 
     const data = await db(sql)
     res.send({
@@ -123,12 +88,9 @@ router.put('/',async function(req,res){
     })
 })
 
-
-
-
 // get /api/user/list
 router.get('/list',async (req,res)=>{
-    const {page=1,size=10,animeclass} = req.query;
+    const {page=1,size=2,animeclass} = req.query;
 
     // 计算索引值
     const idx = (page-1)*size
@@ -143,12 +105,6 @@ router.get('/list',async (req,res)=>{
     }
 
     sql += ` limit ${idx},${qty}`
-
-    // if(page && size){
-    //     sql += ` limit ${idx},${qty}`
-    //     //查询第idx的索引，查询size条数据响应到前端
-    //     }
-
 
     const data = await db(sql)
     res.send({
@@ -165,7 +121,7 @@ router.get('/:id',async (req,res)=>{
     const sql = `select * from users where id=${id}`
 
     const data = await db(sql)
-    // console.log('user=',data);
+    console.log('user=',data);
 
     res.send({
         code:200,
@@ -179,4 +135,3 @@ router.get('/:id',async (req,res)=>{
     // res.send(formatData()); // {code:200,data:[],msg:'success'}
     // res.send(formatData({data:data[0]})); // {code:200,data:{username,id},msg:'success'}
 })
-

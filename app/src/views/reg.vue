@@ -36,7 +36,7 @@ export default {
     },
      methods: {
         onSubmit(values) {
-        console.log('submit', values);
+        // console.log('submit', values);
             this.$request.post('/reg',{
                 // Headers:{},
                 data: {
@@ -44,7 +44,7 @@ export default {
                     password:values.password 
                     },
                 }).then(({data})=>{
-                console.log('data===', data);
+                // console.log('data===', data);
 
 
                 const result = data

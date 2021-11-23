@@ -32,11 +32,17 @@
     </div>
 
     <div class="movicer"><span>演职人员</span></div>
-    <div style="padding: 15px; color: #ffb232">{{ hot_actors }}</div>
+    <div style="padding: 15px; color: #ffb232; margin-bottom:50px;">{{ hot_actors }}</div>
 
     <a href="#" style="height: 49px; position: fixed; bottom: 0px; width: 100%"
-      ><div v-for="item in hot"
-            :key="item.id" class="goSchedule" @click="gotoDetail(item.id)">选座购票</div></a
+      ><div
+        v-for="item in hot"
+        :key="item.id"
+        class="goSchedule"
+        @click="gotoDetail(item.id)"
+      >
+        选座购票
+      </div></a
     >
   </div>
 </template>
@@ -55,37 +61,73 @@ export default {
       hot_nation: "",
       hot_runtime: "",
       hot_synopsis: "",
-      hot_actors: ""
+      hot_actors: "",
     };
   },
   created() {
     const { id } = this.$route.params;
-    console.log("id", id);
+    const { table_name } = this.$route.query;
+    // console.log('table_name',table_name);
+    // console.log("id", id);
 
-    this.$request.get("/hot/" + id).then((data) => {
-    console.log("hot", data.data.data);
+    switch (table_name) {
+      case "hot":
+        this.$request.get("/hot/" + id).then((data) => {
+          // console.log(data);
+          this.hot = data.data.data;
+          this.hot_name = data.data.data[0].name;
+          this.hot_img_url = data.data.data[0].img_url;
+          this.hot_grade = data.data.data[0].grade;
+          this.hot_category = data.data.data[0].category;
+          this.hot_nation = data.data.data[0].nation;
+          this.hot_runtime = data.data.data[0].runtime;
+          this.hot_synopsis = data.data.data[0].synopsis;
+          this.hot_actors = data.data.data[0].actors;
+        });
 
-    this.hot = data.data.data;
-    this.hot_name = data.data.data[0].name;
-    this.hot_img_url = data.data.data[0].img_url;
-    this.hot_grade = data.data.data[0].grade;
-    this.hot_category = data.data.data[0].category;
-    this.hot_nation = data.data.data[0].nation;
-    this.hot_runtime = data.data.data[0].runtime;
-    this.hot_synopsis = data.data.data[0].synopsis;
-    this.hot_actors = data.data.data[0].actors;
-    });
-//     this.$request.get("/now/list").then((data) => {
-//       console.log("now", data.data.data);
-//       this.now = data.data.data;
-//     });
+        break;
+
+      case "now":
+        this.$request.get("/now/" + id).then((data) => {
+          // console.log(data);
+          this.hot = data.data.data;
+          this.hot_name = data.data.data[0].name;
+          this.hot_img_url = data.data.data[0].img_url;
+          this.hot_grade = data.data.data[0].grade;
+          this.hot_category = data.data.data[0].category;
+          this.hot_nation = data.data.data[0].nation;
+          this.hot_runtime = data.data.data[0].runtime;
+          this.hot_synopsis = data.data.data[0].synopsis;
+          this.hot_actors = data.data.data[0].actors;
+        });
+        break;
+    }
+
+    // this.$request.get("/hot/" + id).then((data) => {
+    // // console.log("hot", data.data.data);
+
+    // this.hot = data.data.data;
+    // this.hot_name = data.data.data[0].name;
+    // this.hot_img_url = data.data.data[0].img_url;
+    // this.hot_grade = data.data.data[0].grade;
+    // this.hot_category = data.data.data[0].category;
+    // this.hot_nation = data.data.data[0].nation;
+    // this.hot_runtime = data.data.data[0].runtime;
+    // this.hot_synopsis = data.data.data[0].synopsis;
+    // this.hot_actors = data.data.data[0].actors;
+    // });
+    // this.$request.get("/now/list").then((data) => {
+    //   console.log("now", data.data.data);
+    //   this.now = data.data.data;
+    // this.now_actors = data.data.data[0].actors;
+    // });
   },
   methods: {
     gotoDetail(id) {
       this.$router.push({
         name: "Buy",
         params: {
-          id
+          id,
         },
       });
     },

@@ -39,6 +39,6 @@ const store  = new Vuex.Store({
         address,
     }
 })
-console.log("store",store);
+// console.log("store",store);
 
 export default store;

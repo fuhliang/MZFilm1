@@ -74,9 +74,9 @@ export default {
     created(){
         if(localStorage.getItem('userInfo')){    
             let {username} = JSON.parse(localStorage.getItem('userInfo'))
-            console.log('username  >',{username});
+            // console.log('username  >',{username});
             this.name = username
-            console.log(this);
+            // console.log(this);
         }
 
     },
@@ -86,7 +86,7 @@ export default {
         },
         logout(){
             let {username} = JSON.parse(localStorage.getItem('userInfo'))
-            console.log('username===>',username);
+            // console.log('username===>',username);
             if(username){
                 window.localStorage.removeItem('userInfo')
                 this.$router.go(0)
