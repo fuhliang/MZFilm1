@@ -2,7 +2,7 @@ import axios from 'axios'
 
 
 // const baseUrl = 'http://10.3.136.149:2108/api/hot/list'
-const baseUrl = 'http://localhost:2108'
+const baseUrl = 'http://120.78.229.74:2108'
 
 // =======
 // const baseUrl = 'http://10.3.136.149:2108'

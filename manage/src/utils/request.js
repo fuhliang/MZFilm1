@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const baseUrl = 'http://localhost:2108'
+const baseUrl = 'http://120.78.229.74:2108'
 
 // 创建axios实例，实例拥有与axios几乎一致的方法
 // 我们可以在创建实例时配置自定义参数
