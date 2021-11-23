@@ -1,38 +1,38 @@
 <template>
   <div>
     <van-nav-bar
-      :title="hot_name"
+      :title="hot.name"
       left-text=""
       left-arrow
       @click-left="goto('/home')"
     />
     <div class="header-img">
-      <img :src="$request.baseUrl + hot_img_url" />
+      <img :src="$request.baseUrl + hot.img_url" />
     </div>
 
     <div class="film-detail">
       <div class="col">
         <div class="film-name">
-          <span class="name">{{ hot_name }}</span
+          <span class="name">{{ hot.name }}</span
           ><span class="item">2D</span>
         </div>
         <div class="film-grade">
-          <span class="grade">{{ hot_grade }}</span
+          <span class="grade">{{ hot.grade }}</span
           ><span class="grade-text">分</span>
         </div>
       </div>
-      <div class="film-category grey-text">{{ hot_category }}</div>
+      <div class="film-category grey-text">{{ hot.category }}</div>
       <div class="film-premiere-time grey-text">2021-11-19上映</div>
       <div class="film-nation-runtime grey-text">
-        {{ hot_nation }} | {{ hot_runtime }}分钟
+        {{ hot.nation }} | {{ hot.runtime }}分钟
       </div>
       <div class="test grey-text">
-        {{ hot_synopsis }}
+        {{ hot.synopsis }}
       </div>
     </div>
 
     <div class="movicer"><span>演职人员</span></div>
-    <div style="padding: 15px; color: #ffb232; margin-bottom:50px;">{{ hot_actors }}</div>
+    <div style="padding: 15px; color: #ffb232; margin-bottom:50px;">{{ hot.actors }}</div>
 
     <a href="#" style="height: 49px; position: fixed; bottom: 0px; width: 100%"
       ><div
@@ -52,75 +52,29 @@ export default {
   name: "NowPlaying",
   data() {
     return {
-      hot: [],
-      now: [],
-      hot_name: "",
-      hot_img_url: "",
-      hot_grade: "",
-      hot_category: "",
-      hot_nation: "",
-      hot_runtime: "",
-      hot_synopsis: "",
-      hot_actors: "",
+      hot: {},
+      now: {},
     };
   },
   created() {
     const { id } = this.$route.params;
     const { table_name } = this.$route.query;
-    // console.log('table_name',table_name);
-    // console.log("id", id);
 
     switch (table_name) {
       case "hot":
-        this.$request.get("/hot/" + id).then((data) => {
-          // console.log(data);
-          this.hot = data.data.data;
-          this.hot_name = data.data.data[0].name;
-          this.hot_img_url = data.data.data[0].img_url;
-          this.hot_grade = data.data.data[0].grade;
-          this.hot_category = data.data.data[0].category;
-          this.hot_nation = data.data.data[0].nation;
-          this.hot_runtime = data.data.data[0].runtime;
-          this.hot_synopsis = data.data.data[0].synopsis;
-          this.hot_actors = data.data.data[0].actors;
+        this.$request.get("/hot/" + id).then(({data}) => {
+          this.hot = data.data[0];
+          // console.log(this.hot);
         });
-
         break;
 
       case "now":
-        this.$request.get("/now/" + id).then((data) => {
+        this.$request.get("/now/" + id).then(({data}) => {
           // console.log(data);
-          this.hot = data.data.data;
-          this.hot_name = data.data.data[0].name;
-          this.hot_img_url = data.data.data[0].img_url;
-          this.hot_grade = data.data.data[0].grade;
-          this.hot_category = data.data.data[0].category;
-          this.hot_nation = data.data.data[0].nation;
-          this.hot_runtime = data.data.data[0].runtime;
-          this.hot_synopsis = data.data.data[0].synopsis;
-          this.hot_actors = data.data.data[0].actors;
+          this.hot = data.data[0];
         });
         break;
     }
-
-    // this.$request.get("/hot/" + id).then((data) => {
-    // // console.log("hot", data.data.data);
-
-    // this.hot = data.data.data;
-    // this.hot_name = data.data.data[0].name;
-    // this.hot_img_url = data.data.data[0].img_url;
-    // this.hot_grade = data.data.data[0].grade;
-    // this.hot_category = data.data.data[0].category;
-    // this.hot_nation = data.data.data[0].nation;
-    // this.hot_runtime = data.data.data[0].runtime;
-    // this.hot_synopsis = data.data.data[0].synopsis;
-    // this.hot_actors = data.data.data[0].actors;
-    // });
-    // this.$request.get("/now/list").then((data) => {
-    //   console.log("now", data.data.data);
-    //   this.now = data.data.data;
-    // this.now_actors = data.data.data[0].actors;
-    // });
   },
   methods: {
     gotoDetail(id) {
