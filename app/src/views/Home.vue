@@ -9,19 +9,28 @@
         ><img
           src="../assets/imgs/banner/1.jpg"
           style="width: 100%; height: 100%"
-          @click="gotoDetail(1)"
+          @click="gotoDetail({
+              id:1,
+              table_name:'hot'
+            })"
       /></van-swipe-item>
       <van-swipe-item
         ><img
           src="../assets/imgs/banner/2.jpg"
           style="width: 100%; height: 100%"
-          @click="gotoDetail(4)"
+          @click="gotoDetail({
+              id:4,
+              table_name:'hot'
+            })"
       /></van-swipe-item>
       <van-swipe-item
         ><img
           src="../assets/imgs/banner/3.jpg"
           style="width: 100%; height: 100%"
-          @click="gotoDetail(2)"
+          @click="gotoDetail({
+              id:2,
+              table_name:'hot'
+            })"
       /></van-swipe-item>
     </van-swipe>
 
